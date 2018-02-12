@@ -2,3 +2,8 @@ data/
 __pycache__/
 .DS_Store
 *.pyc
+*.log
+*.pkl
+*.tsv
+apikey.txt
+.python-version

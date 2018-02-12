@@ -12,33 +12,27 @@ import re
 from flickrlicense import FlickrLicense
 
 
-API_KEY = 'd312e6793d7fec1136e4950ba249591d'
+with open('apikey.txt', 'r') as f:
+    API_KEY = f.read()[:-1]
+
 flic = FlickrLicense(API_KEY)
 
 # data directory setting
-suffix = 'rs'
 trgdirs = [
-            #'../data/data_{}/test/unknown'.format(suffix),
-
-            '../data/data_{}/train/ramen'.format(suffix),
-            '../data/data_{}/train/spaghetti'.format(suffix),
-
-            #'../data/data_{}/validation/ramen'.format(suffix),
-            #'../data/data_{}/validation/spaghetti'.format(suffix),
+            'data/shrine_cln',
+            # 'data/',
             ]
 
 # fetch target filename
 trgfiles = \
-    [ os.path.basename(path)
+    [os.path.basename(path)
         for trgdir in trgdirs
-            for path in glob.glob(os.path.join(trgdir, '*.jpg')) ]
+            for path in glob.glob(os.path.join(trgdir, '*.jpg'))]
 
 # extract photo id from file
-trg_photo_ids = [ filename.split('_')[-2] for filename in trgfiles ]
+trg_photo_ids = [filename.split('_')[0] for filename in trgfiles]
 
-# check
-len(trgfiles)
-len(trg_photo_ids)
+# photo_id:5798996673
 trg_photo_ids[:10]
 
 
@@ -69,11 +63,15 @@ for idx, photo_id in enumerate(trg_photo_ids):
 
 
 # check
-result
-result_str
+# result
+# result_str
+
+import pickle
+with open('shrine_cln_result.pkl', 'wb') as f:
+    pickle.dump(result, f)
 
 # output license file
-license_file = '{}_license.tsv'.format(suffix)
+license_file = 'shrine_cln_license.tsv'
 with open(license_file, 'a', encoding='utf-8') as f:
     for line in result_str:
         f.write(line)

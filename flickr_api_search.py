@@ -40,7 +40,8 @@ logger = logging.getLogger()
 
 # Flickr API KEY
 # http://techbooster.org/android/mashup/14828/
-API_KEY = 'd312e6793d7fec1136e4950ba249591d'
+with open('apikey.txt', 'r') as f:
+    API_KEY = f.read()[:-1]
 
 license = '4,5,6,9,10' # commercial use allowed
 
